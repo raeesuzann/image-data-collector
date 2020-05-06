@@ -103,7 +103,7 @@ class App extends Component {
                 <Image key={image.id} image={image} imageOkay={this.imageOkay} imageBad={this.imageBad} />
               ))
             }
-            {currentPage === 1 &&
+            {currentPage !== 1 &&
               <button onClick={this.previousPage}>Previous</button>
             }
             <button onClick={this.nextPage}>Next</button>
