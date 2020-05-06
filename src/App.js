@@ -68,9 +68,9 @@ class App extends Component {
     this.setState({
       currentPage: ++pageNumber
     });
-    console.log(this.state.currentPage);
   }
 
+  // Decrease page current Page Number 
   previousPage = () => {
     let pageNumber = this.state.currentPage;
     this.setState({
@@ -83,13 +83,10 @@ class App extends Component {
       .then(res => this.setState({
         images: res.data,
         isloading: false
-      }, () => {
-        console.log(this.state.images)
       }));
   }
 
   render() {
-
     const { images, isloading, currentPage, imagesPerPage } = this.state;
 
     // Get Current Page Images
@@ -106,12 +103,13 @@ class App extends Component {
                 <Image key={image.id} image={image} imageOkay={this.imageOkay} imageBad={this.imageBad} />
               ))
             }
-            <button onClick={this.previousPage}>Previous</button>
+            {currentPage === 1 &&
+              <button onClick={this.previousPage}>Previous</button>
+            }
             <button onClick={this.nextPage}>Next</button>
             <button onClick={this.exportCSV}>Export CSV</button>
           </div>
-        )
-        }
+        )}
       </Fragment>
     );
   }
