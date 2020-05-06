@@ -71,12 +71,19 @@ class App extends Component {
     console.log(this.state.currentPage);
   }
 
+  previousPage = () => {
+    let pageNumber = this.state.currentPage;
+    this.setState({
+      currentPage: --pageNumber
+    });
+  }
+
   componentDidMount() {
     axios.get("https://picsum.photos/v2/list?limit=100")
       .then(res => this.setState({
         images: res.data,
         isloading: false
-      },() => {
+      }, () => {
         console.log(this.state.images)
       }));
   }
@@ -99,6 +106,7 @@ class App extends Component {
                 <Image key={image.id} image={image} imageOkay={this.imageOkay} imageBad={this.imageBad} />
               ))
             }
+            <button onClick={this.previousPage}>Previous</button>
             <button onClick={this.nextPage}>Next</button>
             <button onClick={this.exportCSV}>Export CSV</button>
           </div>
