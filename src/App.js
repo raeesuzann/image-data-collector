@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 import './App.css';
@@ -33,10 +33,7 @@ class App extends Component {
       images: tempImages,
       isloading: false,
       totalImages: tempImages.length
-    },
-      () => {
-        console.log(this.state.images)
-      });
+    });
   }
 
   handleOutput(selectedImage) {
@@ -45,8 +42,6 @@ class App extends Component {
     tempImage.push(selectedImage);
     this.setState({
       output: tempImage
-    }, () => {
-      console.log(this.state.output);
     });
   }
 
@@ -73,7 +68,6 @@ class App extends Component {
       tempImage = [...tempImage, image];
     });
 
-    console.log(tempImage)
     this.setState({
       output: tempImage
     });
@@ -116,7 +110,6 @@ class App extends Component {
     let csvRow = [];
     const A = [['id', 'name', 'Picture Url', 'User Feedback']];
     const records = this.state.output;
-    console.log(records);
 
     for (let i = 0; i < records.length; i++) {
       A.push([records[i].id, records[i].author, records[i].download_url, (records[i].userStatus ? 'Okay' : ' Bad')]);
@@ -144,28 +137,26 @@ class App extends Component {
     const currentPageImages = images.slice(indexOfFirstImage, indexOfLastImage);
 
     return (
-      <Fragment>
+      <div className="container">
         {isloading ? (<div className="image">...loading</div>) : (
-          <Fragment>
-            <div className="export">
-              <button onClick={this.exportCSV}>Export CSV</button>
-            </div>
+          <div className="image-box">
+            {currentPage !== 1 &&
+              <button onClick={this.previousPage}><i className="fas fa-backward"> Previous</i></button>
+            }
             <div className="image">
               {
                 currentPageImages.map(image => (
                   <Image key={image.id} image={image} imageOkay={this.imageOkay} imageBad={this.imageBad} />
                 ))
               }
-              <Button like onClick={() => this.setAllLiked(currentPageImages)}>Okay</Button>
-              <Button onClick={() => this.setAllDisliked(currentPageImages)}>Bad</Button>
-              {currentPage !== 1 &&
-                <button onClick={this.previousPage}>Previous</button>
-              }
-              <button onClick={() => this.nextPage(indexOfLastImage)}>Next</button>
+              <Button like onClick={() => this.setAllLiked(currentPageImages)}>All Okay</Button>
+              <Button onClick={() => this.setAllDisliked(currentPageImages)}>All Bad</Button>
+              <button onClick={this.exportCSV}>Export CSV</button>
             </div>
-          </Fragment>
+            <button onClick={() => this.nextPage(indexOfLastImage)}>Next <i className="fas fa-forward"></i></button>
+          </div>
         )}
-      </Fragment>
+      </div>
     );
   }
 }

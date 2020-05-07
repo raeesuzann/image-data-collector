@@ -4,13 +4,59 @@
   box-sizing: border-box;
 }
 
-.export {
-  position: absolute;
-  right: 0;
-  margin: 1rem;
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image-box {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.image {
+  margin: 1rem auto;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  cursor: pointer;
 }
 
 button {
-  height: 50px;
-  padding: 1rem;
+  height: 40px;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width: 500px) {
+  .image-box {
+    flex-direction: column;
+  }
+
+  .image {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 768px) {
+  .image-box {
+    flex-direction: column;
+  }
+
+  .image {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    margin: 1rem 0;
+  }
 }
