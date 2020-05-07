@@ -82,7 +82,6 @@ class App extends Component {
       tempImage = [...tempImage, image];
     });
 
-    console.log(tempImage)
     this.setState({
       output: tempImage
     });
